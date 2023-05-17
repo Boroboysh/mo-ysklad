@@ -15,8 +15,8 @@ class StoreResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'id_crm' => $this->externalCode, // Код склада $this->code
+            'id' => 123,
+            'id_crm' => $this->id, // Код склада $this->code
             'position' => 'desc',
             'name' => $this->name,
             'latitude' => 'none',

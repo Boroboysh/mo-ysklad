@@ -15,9 +15,9 @@ class RetailstoreResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => 123,
             'enabled' => $this->active,
-            'id_crm' => 'none',
+            'id_crm' => $this->id,
             'sorting' => 'desc',
             'name' => $this->name,
             'latitude' => 'none',

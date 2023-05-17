@@ -25,27 +25,14 @@ class ProductResource extends JsonResource
             $parent_id = substr($parentIdInitialString, strlen("https://online.moysklad.ru/api/remap/1.2/entity/productfolder/"));
         }
 
-        // Массив изображений товара
-        $photos = json_decode(Http::withToken(session()->get('bearer_token'))->get($this->images->meta->href));
-
-        // Массив остатков товаров
-        $stock_array = json_decode(Http::withToken(session()->get('bearer_token'))->get('https://online.moysklad.ru/api/remap/1.2/report/stock/all/current/'));
-        $stock_element_value = 0;
-
-        foreach ($stock_array as $element) {
-            if ($this->id === $element->assortmentId) {
-                $stock_element_value = $element->stock;
-            }
-        }
 
         return [
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->salePrices[0]->value,
-            'count' => $stock_element_value,
+            'count' => $this->stock ?? 0,
             'priceold' => 0,
-            //TODO ОБъект изображения, а не массив
-            'photo' => ProductImagesResource::collection($photos->rows),
+            'photo' => $this->photo,
             'text' => $this->description ?? '',
             'position' => 'desc', // ?
             'parentid' => $parent_id,
